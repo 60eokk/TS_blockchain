@@ -196,5 +196,19 @@ const superPrint4: SuperPrint4 = (a, b) => a[0]
 superPrint4(["a", 1, true], "C")
 
 
+// another way of writing SuperPrint3 + superPrint3
+function superPrint5<V> (a: V[]) {
+    return a[0]
+}
 
-hello[Symbol].s
+type newPlayer<E> {
+    name: string
+    extraInfo: E
+}
+
+const sally: newPlayer<{favFood:string}> = {
+    name: "sally",
+    extraInfo: {
+        favFood: "kimchi"
+    }
+}
