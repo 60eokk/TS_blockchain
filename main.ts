@@ -213,4 +213,145 @@ const sally: newPlayer<{favFood:string}> = {
     }
 }
 
-//
+// Classes
+class PPlayer {
+    constructor(
+        private firstName1: string,
+        private lastName1: string,
+        public nickname1: string
+    ) {}
+}
+
+const corgi = new PPlayer("corgi", "welsh", "KOGI")
+
+
+// abstract class is a class that other classes can inherit from, but cannot make an instance of directly
+// this means that you cannot do "new User" on line 250
+abstract class User {
+    constructor (
+        private firstName2: string,
+        private lastName2: string,
+        private nickname2: string     // changed this to private to show how "protected it used"
+    ) {}
+
+    // method: method means a function inside a class
+    // if it is private getFullName, line 251 would not work
+    getFullName() {
+        return '${this.firstName1} ${this.lastName1'
+    }
+}
+
+class PPPlayer extends User {
+    getNickName() {
+        console.log(this.nickname2)     // this line doesn't work. But, if you change line232,233,234 to protected, it works
+    }
+}
+
+const poodle = new PPPlayer("poodle", "standard", "poopoo")
+poodle.getFullName()
+
+
+// create type Words, makes you create limited amounts of property for "key string"
+type Words = {
+    [key:string]: string     // the key here is just a name (index), you can change it to anything
+}                            // use the following when you don't know the name of property, but know the type of the property
+
+let dictExample: Words = {
+    "potato" : "food"
+}
+
+class Word {
+    constructor(
+        public term: string, 
+        public def: string
+    ) {}
+}
+
+class Dict {
+    private words: Words
+    constructor() {       
+        this.words = {}   // initialized property manually inside constructor
+    }
+    add(word:Word) {      // use class as a type
+        if(this.words[word.term] === undefined) {  // "this" is a term used in TS, JS which refers to "instance" of that class
+            this.words[word.term] = word.def;      // we use "this" to access properties of the same instance
+        }        
+    }
+    define(term:string) {
+        return this.words[term]     
+    }
+}
+
+const kimchi = new Word("kimchi", "korean food")
+
+const dict = new Dict()
+dict.add(kimchi)
+dict.define("kimchi")
+
+
+
+// Interfaces are similar to types. Interfaces specify shapes of objects. Used a lot with react.js
+type XXX1 = {
+    //
+}
+
+interface XXX2 {
+    // almost the same as XX1
+}
+
+interface User2 {
+    name: string
+}
+
+interface Player5 extends User2 {
+}
+
+const peter: Player5 = {
+    name: "peter"
+}
+
+
+// Interfaces & Class
+abstract class User6 {
+    constructor (
+        protected firstName: string,
+        protected lastName: string
+    ) {}
+    abstract fullName(): string     // this abstract function will return a string
+    abstract sayHi(name:string): string // parameter name, and also return string
+}
+
+class Player6 extends User6 {
+    fullName(){
+        return '${this.firstName} ${this.lastName}'
+    }
+    sayHi(name:string) {
+        return 'Hello ${name}. My name is ${this.fullName}'
+    }
+}
+
+// Now, will do the same (User6, Player6 stuff) using interface
+interface User7 {
+    firstName: string,
+    lastName: string,
+    sayHi(name:string): string,
+    fullName(): string
+}
+
+interface Health7 {     // added a new function to use in line 345
+    health: number
+}
+
+class Player7 implements User7, Health7 {
+    constructor(
+        public firstName: string,     // they need to be public
+        public lastName: string,     // they need to be public
+        public health: number
+    ) {}
+    fullName(){
+        return '${this.firstName} ${this.lastName}'
+    }
+    sayHi(name:string) {
+        return 'Hello ${name}. My name is ${this.fullName}'
+    }
+}
