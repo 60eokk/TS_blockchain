@@ -354,4 +354,4 @@ class Player7 implements User7, Health7 {
     sayHi(name:string) {
         return 'Hello ${name}. My name is ${this.fullName}'
     }
-}
+}  
